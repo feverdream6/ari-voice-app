@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 15, 15, 15;
+
+  /* Qube accent color - updated to match screenshot */
+  --qube-accent: 163, 116, 255;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Accent text */
+.text-accent {
+  @apply text-qube-accent;
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(31, 41, 55, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* Subtle noise texture */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  background-size: 200px;
+  opacity: 0.03;
+}
+
+/* Ripple effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.ripple-container::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(var(--qube-accent), 0.3) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.8s;
+}
+
+.ripple-container:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Button hover animation */
+@keyframes buttonHover {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--qube-accent), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--qube-accent), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--qube-accent), 0);
+  }
+}
+
+.button-hover-effect:hover {
+  animation: buttonHover 1.5s ease-in-out infinite;
+}
+
+/* Button focus styles */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgb(var(--qube-accent));
+  outline-offset: 2px;
+}
+
+/* Button active state */
+button:active {
+  transform: translateY(1px);
+}
+
+/* Z-index stacking order */
+.z-voice-interface {
+  z-index: 30;
+}
+
+.z-navigation {
+  z-index: 40;
+}
+
+.z-modal {
+  z-index: 50;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .voice-active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90vw;
+    width: 100%;
+  }
+
+  .voice-container {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .voice-messages {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  /* Larger touch targets for mobile */
+  button {
+    min-height: 44px;
+  }
+
+  /* Adjust button spacing on mobile */
+  .button-group-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+/* Prevent content shift when scrollbar appears/disappears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--qube-accent), 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--qube-accent), 0.8);
+}
+
+/* Accent glow */
+.accent-glow {
+  box-shadow: 0 0 15px rgba(var(--qube-accent), 0.5);
+}
+
+/* Gradient text */
+.accent-gradient {
+  background: linear-gradient(90deg, #a374ff, #b68fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Dark background for cards */
+.card-bg {
+  background-color: #121826;
+}
+
+/* Button loading animation */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Accessibility focus indicator */
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-qube-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black;
+}
+

@@ -1,0 +1,404 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #000000;
+  overflow: hidden;
+  position: relative;
+}
+
+.face-container {
+  position: relative;
+}
+
+.face-display {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffeaea, #f8d8d8);
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: spin 5s linear infinite, growToFace 3s ease-in-out 1 forwards, float 3s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes growToFace {
+  0% {
+    width: 50px;
+    height: 50px;
+    transform: scale(0.1);
+  }
+  100% {
+    width: 350px;
+    height: 350px;
+    transform: scale(1);
+    border-radius: 43% 43% 40% 40%;
+  }
+}
+
+.face-display.off {
+  animation: shrinkToHalfAndSpin 3s ease-in-out 1 forwards;
+}
+
+@keyframes shrinkToHalfAndSpin {
+  0% {
+    width: 350px;
+    height: 350px;
+    transform: scale(1) rotate(0deg);
+    border-radius: 43% 43% 40% 40%;
+  }
+  50% {
+    width: 175px; /* Half of full */
+    height: 175px; /* Half of full */
+    transform: scale(0.5) rotate(180deg); /* Cyclone effect */
+  }
+  100% {
+    width: 350px;
+    height: 350px;
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(2px, -3px, 0) rotate(0.5deg);
+  }
+  75% {
+    transform: translate3d(-2px, -3px, 0) rotate(-0.5deg);
+  }
+}
+
+.introduction {
+  position: absolute;
+  top: -40px;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  width: 100%;
+}
+
+.cta {
+  position: absolute;
+  top: -10px;
+  text-align: center;
+  font-size: 16px;
+  color: #ffd700;
+  width: 100%;
+}
+
+/* Face features */
+/* Expression styles */
+.expression-neutral .mouth {
+  border-radius: 0 0 50px 50px;
+  height: 25px;
+}
+
+.expression-smile .mouth {
+  border-radius: 50px 50px 50px 50px;
+  height: 15px;
+}
+
+.expression-wink .eye.right {
+  height: 5px;
+}
+
+.expression-surprise .mouth {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  left: calc(50% - 20px);
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* Eyes */
+.eyes {
+  position: absolute;
+  width: 100%;
+  top: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.eye {
+  width: 55px;
+  height: 25px;
+  background: linear-gradient(to bottom, #ffffff, #f0f8ff);
+  border-radius: 50%;
+  margin: 0 35px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1), inset 0 -2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pupil {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(145deg, #1a1a1a, #333);
+  border-radius: 50%;
+  top: 3px;
+  left: 17px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.pupil:after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 2px;
+  opacity: 0.7;
+}
+
+/* Eyebrows */
+.eyebrow {
+  position: absolute;
+  width: 65px;
+  height: 6px;
+  background: #5a3825;
+  border-radius: 10px;
+  top: 27%;
+}
+
+.eyebrow.left {
+  left: 28%;
+  transform: rotate(-8deg);
+}
+
+.eyebrow.right {
+  right: 28%;
+  transform: rotate(8deg);
+}
+
+/* Nose */
+.nose {
+  position: absolute;
+  width: 16px;
+  height: 42px;
+  background: linear-gradient(to right, #ffe6e6, #ffcccc, #ffe6e6);
+  border-radius: 40% 40% 60% 60%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Mouth/Lips */
+.mouth {
+  position: absolute;
+  width: 70px;
+  height: 25px;
+  background: linear-gradient(to bottom, #ff7a7a, #ff5c5c);
+  border-radius: 0 0 50px 50px;
+  top: 65%;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Hair */
+.hair {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 43% 43% 40% 40%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.hair-top {
+  position: absolute;
+  width: 150%;
+  height: 150px;
+  background: linear-gradient(to bottom, #3a2213, #654321);
+  border-radius: 50% 50% 40% 40%;
+  top: -50px;
+  left: -25%;
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hair-side {
+  position: absolute;
+  width: 80px;
+  height: 200px;
+  background: linear-gradient(to right, #3a2213, #654321);
+  top: 50px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.hair-side.left {
+  left: -10px;
+  border-radius: 50% 0 0 20%;
+}
+
+.hair-side.right {
+  right: -10px;
+  border-radius: 0 50% 20% 0;
+}
+
+/* Highlights in hair */
+.hair:after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  top: 0;
+  left: 20%;
+  transform: rotate(25deg);
+  filter: blur(10px);
+}
+
+/* Earrings */
+.earring {
+  position: absolute;
+  width: 12px;
+  height: 22px;
+  background: linear-gradient(145deg, #ffd700, #ffcc00);
+  border-radius: 50%;
+  top: 50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.earring:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 2px;
+  opacity: 0.7;
+}
+
+.earring.left {
+  left: 5%;
+}
+
+.earring.right {
+  right: 5%;
+}
+
+.doorbell {
+  position: absolute;
+  bottom: 40px;
+  width: 60px;
+  height: 60px;
+  background: #6f42c1;
+  border: 4px solid #500f77;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 100;
+}
+
+.doorbell:before {
+  content: "\1F3A4"; /* Unicode for microphone icon */
+  font-size: 30px;
+  color: white;
+}
+
+.doorbell:hover {
+  transform: scale3d(1.05, 1.05, 1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.doorbell:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  background: #e0b612;
+}
+
+.doorbell.fade-out {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.thinking {
+  position: absolute;
+  bottom: 40px;
+  font-size: 18px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.equalizer {
+  display: flex;
+  gap: 4px;
+  height: 30px;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 4px;
+  background: #8a5cf7;
+  transition: height 0.1s ease;
+  border-radius: 2px;
+}
+
+.thinking.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Blush effect */
+.blush {
+  position: absolute;
+  width: 45px;
+  height: 22px;
+  background: radial-gradient(circle, rgba(255, 150, 150, 0.7), rgba(255, 150, 150, 0.2));
+  border-radius: 50%;
+  top: 55%;
+  filter: blur(2px);
+}
+
+.blush.left {
+  left: 25%;
+}
+
+.blush.right {
+  right: 25%;
+}
+
